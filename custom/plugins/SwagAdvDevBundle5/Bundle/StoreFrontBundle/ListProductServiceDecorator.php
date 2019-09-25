@@ -40,7 +40,7 @@ class ListProductServiceDecorator implements ListProductServiceInterface
             //todo call a method in your bundle service to get the information if the product is in a bundle
             // fill the $bundle variable with the return value
 
-            $bundles = [];
+            $bundles = $this->bundleService->getProductBundles($product->getId(), $context);
             $attribute = new Struct\Attribute([
                 'has_bundle' => !empty($bundles),
             ]);
