@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="shopware.api.bundle" class="SwagAdvDevBundle5\Components\Api\Resource\Bundle"/>
+
+        <!-- todo define your bundle service            http://symfony.com/doc/current/book/service_container.html
+         todo decorate the list product service     https://developers.shopware.com/developers-guide/plugin-quick-start/#decorate-a-service http://symfony.com/doc/current/service_container/service_decoration.html -->
+    </services>
+</container>
