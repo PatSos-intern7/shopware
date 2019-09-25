@@ -1,11 +1,11 @@
 <?php
 
-namespace SwagAdvDevBundle3;
+namespace SwagAdvDevBundle4;
 
 use Doctrine\ORM\Tools\SchemaTool;
 use Shopware\Components\Plugin;
 
-class SwagAdvDevBundle3 extends Plugin
+class SwagAdvDevBundle4 extends Plugin
 {
     /**
      * {@inheritdoc}
@@ -13,19 +13,19 @@ class SwagAdvDevBundle3 extends Plugin
     public static function getSubscribedEvents()
     {
         return [
+            'Enlight_Controller_Action_PreDispatch' => 'addTemplateDir',
             //todo backend module (ExtJs)
-            //  todo implement the menu.xml
-            //  todo implement the bundle grid
-            // don't forget to register your views directory to Shopware
-            'Enlight_Controller_Action_PostDispatch_Backend_SwagBundle' => 'onBackendPostDispatch'
+            //  todo implement the detail view
+            // don't forget to extend the Backend/swagBundle controller in order to select product data for the detail view
         ];
     }
 
-    public function onBackendPostDispatch(\Enlight_Controller_ActionEventArgs $args)
+    /**
+     * @param \Enlight_Controller_ActionEventArgs $args
+     */
+    public function addTemplateDir(\Enlight_Controller_ActionEventArgs $args)
     {
-        /** @var \Shopware_Controllers_Backend_SwagBundle $subject */
-        $subject = $args->getSubject();
-        $subject->View()->addTemplateDir($this->getPath().'/Resources/views');
+        $args->getSubject()->View()->addTemplateDir($this->getPath() . '/Resources/views');
     }
 
     /**
