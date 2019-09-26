@@ -6,6 +6,8 @@ use Enlight_Controller_Request_RequestHttp as Request;
 use Shopware\Bundle\SearchBundle\Criteria;
 use Shopware\Bundle\SearchBundle\CriteriaRequestHandlerInterface;
 use Shopware\Bundle\StoreFrontBundle\Struct\ShopContextInterface;
+use SwagAdvDevBundle7\Bundle\SearchBundle\Condition\BundleCondition;
+use SwagAdvDevBundle7\Bundle\SearchBundle\Facet\BundleFacet;
 
 class CriteriaRequestHandler implements CriteriaRequestHandlerInterface
 {
@@ -17,7 +19,10 @@ class CriteriaRequestHandler implements CriteriaRequestHandlerInterface
         Criteria $criteria,
         ShopContextInterface $context
     ) {
-        //todo add bundle facet to criteria
-        //todo if request contains your own "bundle" parameter, add bundle condition
+        $criteria->addFacet(new BundleFacet());
+
+        if($request->has('bundle')){
+            $criteria->addCondition(new BundleCondition());
+        }
     }
 }

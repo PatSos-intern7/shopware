@@ -6,6 +6,7 @@ use Shopware\Bundle\SearchBundle\ConditionInterface;
 use Shopware\Bundle\SearchBundleDBAL\ConditionHandlerInterface;
 use Shopware\Bundle\SearchBundleDBAL\QueryBuilder;
 use Shopware\Bundle\StoreFrontBundle\Struct\ShopContextInterface;
+use SwagAdvDevBundle7\Bundle\SearchBundle\Condition\BundleCondition;
 
 class BundleConditionHandler implements ConditionHandlerInterface
 {
@@ -14,7 +15,7 @@ class BundleConditionHandler implements ConditionHandlerInterface
      */
     public function supportsCondition(ConditionInterface $condition)
     {
-        //todo check if provided condition is your bundle condition
+        return ($condition instanceof BundleCondition);
     }
 
     /**
@@ -25,6 +26,12 @@ class BundleConditionHandler implements ConditionHandlerInterface
         QueryBuilder $query,
         ShopContextInterface $context
     ) {
+        $query->innerJoin(
+            'product',
+            's_bundle_products',
+            'bundle',
+            'product.id = bundle.product_id'
+        );
         //todo filter query to display only products with bundle definition
     }
 }
