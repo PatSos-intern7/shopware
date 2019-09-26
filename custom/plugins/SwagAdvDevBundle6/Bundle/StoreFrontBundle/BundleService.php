@@ -57,8 +57,8 @@ class BundleService
             $legacyProducts = $this->structConverter->convertListProductStructList($products);
             $bundle->setLegacyProducts($legacyProducts);
         }
-        
-        return $this->getBundlesByProductId($productId);
+
+        return $bundles;
     }
 
     /**
