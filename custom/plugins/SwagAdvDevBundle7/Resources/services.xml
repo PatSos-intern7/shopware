@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="shopware.api.bundle" class="SwagAdvDevBundle7\Components\Api\Resource\Bundle"/>
+
+        <service id="swag_bundle.bundle_service"
+                 class="SwagAdvDevBundle7\Bundle\StoreFrontBundle\BundleService">
+            <argument type="service" id="dbal_connection" />
+            <argument type="service" id="swag_bundle.list_product_service.inner" />
+            <argument type="service" id="legacy_struct_converter"/>
+        </service>
+
+        <service id="swag_bundle.list_product_service"
+                 class="SwagAdvDevBundle7\Bundle\StoreFrontBundle\ListProductServiceDecorator"
+                 decorates="shopware_storefront.list_product_service"
+                 public="false">
+            <argument type="service" id="swag_bundle.list_product_service.inner"/>
+            <argument type="service" id="swag_bundle.bundle_service"/>
+        </service>
+
+        <!-- todo search extension (filtering)          see engine/Shopware/Bundle/SearchBundle/services.xml and engine/Shopware/Bundle/SearchBundleDBAL/services.xml
+         todo define your facet handler, condition handler and criteria request handler using DI tags     http://symfony.com/doc/current/service_container/tags.html
+          https://developers.shopware.com/developers-guide/dic-tags/#criteria_request_handler -->
+    </services>
+</container>
