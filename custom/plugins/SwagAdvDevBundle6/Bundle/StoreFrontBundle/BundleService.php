@@ -47,6 +47,17 @@ class BundleService
      */
     public function getProductBundles($productId, ShopContextInterface $context)
     {
+        $bundles = $this->getBundlesByProductId($productId);
+
+        foreach ($bundles as $bundle){
+            $productNumbers = $this->getProductNumbersByBundleId($bundle->getId());
+            $products = $this->listProductService->getList($productNumbers, $context);
+            $bundle->setProducts($products);
+
+            $legacyProducts = $this->structConverter->convertListProductStructList($products);
+            $bundle->setLegacyProducts($legacyProducts);
+        }
+            var_dump($this->getBundlesByProductId($productId));
         return $this->getBundlesByProductId($productId);
     }
 
@@ -78,5 +89,18 @@ class BundleService
         }
 
         return $bundles;
+    }
+
+    public function getProductNumbersByBundleId($bundleId)
+    {
+      $builder = $this->connection->createQueryBuilder();
+      $builder->select('ordernumber')
+          ->from('s_bundle_products', 'bundleProducts')
+          ->leftJoin('bundleProducts','s_articles_details','details','bundleProducts.product_id = details.articleID')
+          ->where('details.kind=1')
+          ->andWhere('bundleProducts.bundle_id = :bundleId')
+          ->setParameter('bundleId', $bundleId);
+
+      return $builder->execute()->fetchAll(\PDO::FETCH_COLUMN);
     }
 }
