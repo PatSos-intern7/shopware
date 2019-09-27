@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.3/engine/Shopware/Components/Plugin/schema/plugin.xsd">
 
     <label lang="de">VirtuaFeaturedProducts</label>
-    <label lang="en">Is Featured</label>
+    <label lang="en">VirtuaFeaturedProducts</label>
 
     <version>0.0.1</version>
     <copyright>Damage Inc.</copyright>

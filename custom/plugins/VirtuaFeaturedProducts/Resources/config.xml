@@ -10,6 +10,21 @@
             <description lang="de">Erste plugin</description>
             <description lang="en">First plugin</description>
         </element>
-
+        <element required="true" type="text" scope="locale">
+            <name>my name</name>
+            <label lang="de">NoP</label>
+            <label lang="en">Number of products</label>
+            <value>3</value>
+            <description lang="de">Number of products</description>
+            <description lang="en">Number of products</description>
+        </element>
+        <element required="true" type="boolean" scope="locale">
+            <name>Display Featured Products</name>
+            <label lang="de">Display Featured Products</label>
+            <label lang="en">Display Featured Products</label>
+            <value>false</value>
+            <description lang="de">DFP</description>
+            <description lang="en">DFP</description>
+        </element>
     </elements>
 </config>
