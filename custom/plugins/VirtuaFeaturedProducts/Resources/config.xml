@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.3/engine/Shopware/Components/Plugin/schema/config.xsd">
+    <elements>
+        <element required="true" type="text" scope="locale">
+            <name>VirtuaFeaturedProducts</name>
+            <label lang="de">VirtuaFeaturedProducts</label>
+            <label lang="en">VirtuaFeaturedProducts</label>
+            <value>preselection</value>
+            <description lang="de">Erste plugin</description>
+            <description lang="en">First plugin</description>
+        </element>
+
+    </elements>
+</config>
