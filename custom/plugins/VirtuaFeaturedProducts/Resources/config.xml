@@ -11,7 +11,7 @@
             <description lang="en">First plugin</description>
         </element>
         <element required="true" type="text" scope="locale">
-            <name>my name</name>
+            <name>Number of products</name>
             <label lang="de">NoP</label>
             <label lang="en">Number of products</label>
             <value>3</value>
