@@ -1,9 +1,10 @@
 {extends file="parent:frontend/listing/product-box/box-basic.tpl"}
-    {block name='frontend_listing_box_article_price_info'}
-        {if $logged === true}
+    {block name="frontend_listing_box_article_price"}
+        {if $sUserLoggedIn}
             {$smarty.block.parent}
         {else}
-            <p>Login to see pricess</p>
+            <p>Login to see prices</p>
         {/if}
     {/block}
+
 
