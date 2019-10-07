@@ -14,7 +14,7 @@ class VirtuaPriceForLogged extends Plugin
         public static function getSubscribedEvents()
         {
             return [
-                'Enlight_Controller_Action_PreDispatch_Frontend_Detail' => 'addTemplateDir',
+                'Enlight_Controller_Action_PreDispatch_Frontend' => 'addTemplateDir',
             ];
         }
 
@@ -28,7 +28,7 @@ class VirtuaPriceForLogged extends Plugin
 
         public function install(InstallContext $context)
         {
-
+            $context->scheduleClearCache(InstallContext::CACHE_LIST_DEFAULT);
         }
 
         public function uninstall(UninstallContext $context)
@@ -36,14 +36,7 @@ class VirtuaPriceForLogged extends Plugin
             if($context->keepUserData()){
                 return;
             }
-            $attributeService = $this->container->get('shopware_attribute.crud_service');
 
-            $attributeExist = $attributeService->get('s_articles_attributes','is_featured');
-
-            if($attributeExist === NULL){
-                return;
-            }
-            $attributeService->delete('s_articles_attributes','is_featured');
             $context->scheduleClearCache(InstallContext::CACHE_LIST_DEFAULT);
         }
 }
