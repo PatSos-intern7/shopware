@@ -4,13 +4,21 @@
 
     <entries>
         <entry>
-            <name>VirtuaTechnology</name>
-            <label lang="en">Virtua Technology</label>
-            <label lang="de">Virtua Technology</label>
-            <controller>VirtuaTechnology</controller>
-            <action>index</action>
+            <name>Virtua</name>
+            <label lang="en">Virtua</label>
+            <label lang="de">Virtua</label>
             <class>sprite-application-block</class>
-            <parent identifiedBy="controller">Marketing</parent>
+            <parent identifiedBy="controller">Article</parent>
+            <children>
+                <entry>
+                    <name>Technologies</name>
+                    <label lang="en">Technologies</label>
+                    <label lang="de">Technologies</label>
+                    <controller>VirtuaTechnology</controller>
+                    <action>index</action>
+                    <class>sprite-application-block</class>
+                </entry>
+            </children>
         </entry>
     </entries>
 </menu>
