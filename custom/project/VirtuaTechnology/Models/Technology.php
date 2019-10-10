@@ -37,14 +37,14 @@ class Technology extends ModelEntity
     /**
      * @var string $logo
      *
-     * @ORM\Column()
+     * @ORM\Column(type="text", nullable=true)
      */
     private $logo;
 
     /**
      * @var string $url
      *
-     * @ORM\Column()
+     * @ORM\Column(type="text", nullable=true)
      */
     private $url;
 
@@ -78,5 +78,37 @@ class Technology extends ModelEntity
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogo(): string
+    {
+        return $this->logo;
+    }
+
+    /**
+     * @param string $logo
+     */
+    public function setLogo(string $logo): void
+    {
+        $this->logo = $logo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setUrl(string $url): void
+    {
+        $this->url = $url;
     }
 }

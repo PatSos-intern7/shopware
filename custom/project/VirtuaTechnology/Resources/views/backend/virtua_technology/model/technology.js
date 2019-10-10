@@ -3,15 +3,14 @@ Ext.define('Shopware.apps.VirtuaTechnology.model.Technology', {
 
     configure: function() {
         return {
-            controller: 'VirtuaTechnology'
+            controller: 'VirtuaTechnology',
+            detail: 'Shopware.apps.VirtuaTechnology.view.detail.Technology'
         };
     },
 
     fields: [
-        { name : 'id', type: 'int'},
         { name : 'name', type: 'string' },
-        { name : 'description', type: 'string', useNull: true },
-        { name : 'logo', type: 'string', useNull: true },
-        { name : 'url', type: 'string' }
+        { name : 'description', type: 'string'},
+        { name : 'logo', type: 'string'},
     ]
 });

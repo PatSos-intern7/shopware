@@ -10,13 +10,16 @@ Ext.define('Shopware.apps.VirtuaTechnology', {
 
     views: [
         'list.Window',
-        'list.Technology'
+        'list.Technology',
+
+        'detail.Technology',
+        'detail.Window'
     ],
 
     models: [ 'Technology' ],
     stores: [ 'Technology' ],
 
-    launch: function() {
+    launch: function () {
         return this.getController('Main').mainWindow;
     }
 });
