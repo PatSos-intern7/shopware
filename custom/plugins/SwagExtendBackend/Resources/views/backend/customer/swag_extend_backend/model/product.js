@@ -7,5 +7,7 @@ Ext.define('Shopware.apps.Customer.swagExtendBackend.model.Product', {
         { name: 'mainDetailId', type: 'int' },
         { name: 'name', type: 'string' }
     ]
+
+
 });
 // {/block}
