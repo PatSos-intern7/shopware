@@ -14,7 +14,7 @@ class VirtuaPriceForLogged extends Plugin
         public static function getSubscribedEvents()
         {
             return [
-                'Enlight_Controller_Action_PreDispatch_Frontend' => 'addTemplateDir',
+                'Enlight_Controller_Action_PostDispatchSecure_Frontend' => 'addTemplateDir',
             ];
         }
 
