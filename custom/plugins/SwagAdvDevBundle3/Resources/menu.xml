@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.3/engine/Shopware/Components/Plugin/schema/menu.xsd">
+
+    <!--todo create new menu item for your backend application-->
+    <entries>
+        <entry>
+            <name>Suzin First</name>
+            <label lang="en">Suzin</label>
+            <label lang="de">Suzin</label>
+            <controller>SwagBundle</controller>
+            <action>index</action>
+            <class>sprite-application-block</class>
+            <parent identifiedBy="controller">Marketing</parent>
+        </entry>
+    </entries>
+</menu>
