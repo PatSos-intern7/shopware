@@ -7,15 +7,11 @@
 
         <service class="VirtuaTechnology\Services\TechnologyService" id="virtua_technology_services.technology_service">
             <argument id="dbal_connection" type="service"/>
-            <argument id="service_container" type="service"/>
-            <argument id="shopware_storefront.list_product_service" type="service"/>
         </service>
 
-        <service class="VirtuaTechnology\Subscriber\Frontend" id="virtua_technology.subscriber.frontend">
-            <argument id="virtua_technology_services.technology_service" type="service"/>
+        <service class="VirtuaTechnology\Subscriber\TechnologyFrontend" id="virtua_technology.subscriber.technology_frontend">
             <tag name="shopware.event_subscriber"/>
         </service>
-
 
     </services>
 </container>
