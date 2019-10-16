@@ -22,9 +22,9 @@ class VirtuaTechnology extends Plugin
             'sRewriteTable::sCreateRewriteTable::after' => 'createTechnologyRewriteTable',
             'Enlight_Controller_Action_PostDispatch_Backend_Performance' => 'loadPerformanceExtension',
             'Shopware_Controllers_Seo_filterCounts' => 'addGlossaryCount',
-            'Shopware_Components_RewriteGenerator_FilterQuery' => 'filterParameterQuery'
+            'Shopware_Components_RewriteGenerator_FilterQuery' => 'filterParameterQuery',
+            'Enlight_Controller_Action_PreDispatch_Backend' =>'addTemplateDir'
         ];
-
     }
     /**
      * {@inheritdoc}
@@ -97,7 +97,7 @@ class VirtuaTechnology extends Plugin
         ');
     }
 
-    public function createTechnologyRewriteTable()
+    public function createTechnologyRewriteTable(): void
     {
         /** @var \sRewriteTable $rewriteTableModule */
         $rewriteTableModule = Shopware()->Container()->get('modules')->sRewriteTable();
@@ -106,7 +106,7 @@ class VirtuaTechnology extends Plugin
         /** @var QueryBuilder $dbalQueryBuilder */
         $dbalQueryBuilder = $this->container->get('dbal_connection')->createQueryBuilder();
 
-        $technologies = $dbalQueryBuilder->select('svt.id, svt.name')
+        $technologies = $dbalQueryBuilder->select('svt.id, svt.url')
             ->from('s_virtua_technology', 'svt')
             ->execute()
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
@@ -133,12 +133,12 @@ class VirtuaTechnology extends Plugin
 
         /** @var QueryBuilder $dbalQueryBuilder */
         $dbalQueryBuilder = $this->container->get('dbal_connection')->createQueryBuilder();
-        $wordsCount = $dbalQueryBuilder->select('COUNT(svt.id)')
+        $technologyCount = $dbalQueryBuilder->select('COUNT(svt.id)')
             ->from('s_virtua_technology', 'svt')
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
 
-        $counts['glossary'] = $wordsCount;
+        $counts['technology'] = $technologyCount;
 
         return $counts;
     }
