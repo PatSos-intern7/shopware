@@ -3,13 +3,19 @@
 {block name="frontend_index_content_left"}{/block}
 
 {block name="frontend_index_content"}
-    {debug}
     {foreach $techList as $tech}
         <div class="glossary--word-container">
-            <span class="word-container--word">Name: {$tech.name}</span>
-            <a href="/technology/{$tech.name}" alt=""/>
-            <div class="word-container--description">Opis: {$tech.description}</div>
-{*            <img src="{$tech.path}"</img>*}
+            <h4 class="word-container--word">{$tech.name}</h4>
+            {if is_null($tech.path)}
+                {assign var="newpath" value="themes/Frontend/Responsive/frontend/_public/src/img/no-picture.jpg"}
+                <a href="/technology/{$tech.url}" alt="{$tech.name}">
+                    <img width="150" height="150" src="{$newpath}">
+                </a>
+            {else}
+                <a href="/technology/{$tech.url}" alt="{$tech.name}">
+                    <img width="150" height="150" src="{$tech.path}">
+                </a>
+            {/if}
         </div>
     {/foreach}
 {/block}
