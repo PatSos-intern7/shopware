@@ -2,9 +2,6 @@
 namespace VirtuaTechnology\Services;
 
 use Doctrine\DBAL\Connection;
-use PDO;
-use Shopware\Bundle\StoreFrontBundle\Service\ListProductServiceInterface;
-use Shopware\Components\DependencyInjection\Container;
 
 class TechnologyService
 {
@@ -14,64 +11,37 @@ class TechnologyService
     private $connection;
 
     /**
-     * @var ListProductServiceInterface
-     */
-    public $listProductService;
-
-    /**
-     * @var array|false
-     */
-    public $pluginConfig;
-    /**
-     * @var Container
-     */
-    private $container;
-
-    /**
      * @param Connection $connection
-     * @param Container $container
-     * @param ListProductServiceInterface $listProductService
      */
     public function __construct(
-        Connection $connection,
-        Container $container,
-        ListProductServiceInterface $listProductService
+        Connection $connection
     ) {
         $this->connection = $connection;
-        $this->container = $container;
-        $this->listProductService = $listProductService;
-        $this->pluginConfig = $this->getPluginConfig();
     }
 
-    public function getFeaturedArticlesId(): array
+    public function getTechnologiesData()
     {
-        $maxResults = $this->pluginConfig['Number of products'];
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $query = $queryBuilder->select('sad.ordernumber')
-            ->from('s_articles_attributes', 'saa')
-            ->leftJoin('saa','s_articles_details','sad','saa.articledetailsID = sad.id')
-            ->andWhere('saa.is_featured = true')
-            ->setMaxResults($maxResults);
-        $result = $query->execute();
-        return $result->fetchAll(PDO::FETCH_COLUMN);
+        $builder = $this->connection->createQueryBuilder();
+        $query = $builder->select('svt.name, svt.description, path, url')
+            ->from('s_virtua_technology','svt')
+            ->leftJoin('svt','s_media','sm','svt.logo = sm.id')
+            ->execute()
+            ->fetchAll();
+
+        return $query;
     }
 
-    public function getArticlesData(): array
+    public function getTechnology($nameId)
     {
-        $context = $this->container->get('shopware_storefront.context_service')->getShopContext();
-        $ids = $this->getFeaturedArticlesId();
-        return $this->listProductService->getList($ids, $context);
+        $builder = $this->connection->createQueryBuilder();
+        $techData = $builder->select('svt.name, svt.description, path')
+            ->from('s_virtua_technology', 'svt')
+            ->leftJoin('svt','s_media','sm','svt.logo = sm.id')
+            ->where('svt.id = :id')
+            ->setParameter(':id', $nameId)
+            ->execute()
+            ->fetch();
+
+        return $techData;
     }
-
-    public function getPluginConfig()
-    {
-        $config = $this->container->get('shopware.plugin.cached_config_reader')->getByPluginName('VirtuaFeaturedProducts');
-        return $config;
-    }
-
-    public function prepDataForView($data): array
-    {
-
-    }
-
 }
