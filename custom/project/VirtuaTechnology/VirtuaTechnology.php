@@ -30,6 +30,8 @@ class VirtuaTechnology extends Plugin
      */
     public function install(InstallContext $installContext)
     {
+        $this->addTechnologyMultiselect($installContext);
+
         $this->createDatabase();
         $this->insertTestData();
     }
@@ -140,6 +142,31 @@ class VirtuaTechnology extends Plugin
         $counts['technology'] = $technologyCount;
 
         return $counts;
+    }
+
+    /**
+     * @param InstallContext $installContext
+     * @throws \Exception
+     */
+    private function addTechnologyMultiselect(InstallContext $installContext): void
+    {
+        $attributeService = $this->container->get('shopware_attribute.crud_service');
+
+        $attributeService->update(
+            's_articles_attributes',
+            'my_multi_selection',
+            'multi_selection',
+            [
+                'entity' => Technology::class,
+                'displayInBackend' => true,
+                'label' => 'My multi selection',
+            ],
+            null,
+            true
+        );
+
+        $this->container->get('models')->generateAttributeModels(['s_articles_attributes']);
+        $installContext->scheduleClearCache(InstallContext::CACHE_LIST_DEFAULT);
     }
 
 }
