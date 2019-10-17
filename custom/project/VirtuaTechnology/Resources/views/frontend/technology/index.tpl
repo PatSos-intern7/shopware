@@ -3,6 +3,10 @@
 {block name="frontend_index_content_left"}{/block}
 
 {block name="frontend_index_content"}
+    {if $paginator.prevPageUrl}
+        <a href="{$paginator.prevPageUrl}">Prev</a>
+    {/if}
+    <a href="{$paginator.nextPageUrl}">Next</a>
     {foreach $techList as $tech}
         <div class="glossary--word-container">
             <h4 class="word-container--word">{$tech.name}</h4>
