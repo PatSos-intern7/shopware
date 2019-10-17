@@ -6,18 +6,28 @@ use Shopware\Components\Routing\Router;
 
 class TechnologyPaginator
 {
-    public function getPaginationData(Enlight_Controller_Request_RequestHttp $request,Router $router): array
+    /**
+     * @var Router
+     */
+    private $router;
+
+    public function __construct(Router $router)
+    {
+        $this->router = $router;
+    }
+
+    public function getPaginationData(Enlight_Controller_Request_RequestHttp $request): array
     {
         $perPage = $request->getParam('s',3);
         $pageNumber = $request->getParam('n',1);
 
         if($pageNumber >1 ){
-            $prevPageRoute = $router->assemble(
+            $prevPageRoute = $this->router->assemble(
                 ['s'=>$perPage, 'n'=>$pageNumber-1]
             );
         }
 
-        $nextPageRoute = $router->assemble(
+        $nextPageRoute = $this->router->assemble(
             ['s'=>$perPage, 'n'=>$pageNumber+1]
         );
 
