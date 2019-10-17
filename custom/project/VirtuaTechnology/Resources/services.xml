@@ -9,9 +9,8 @@
             <argument id="dbal_connection" type="service"/>
         </service>
 
-        <service class="VirtuaTechnology\Subscriber\TechnologyFrontend" id="virtua_technology.subscriber.technology_frontend">
-            <tag name="shopware.event_subscriber"/>
-        </service>
+        <service class="VirtuaTechnology\Services\TechnologyPaginator" id="virtua_technology.services.technology_paginator"/>
+
 
     </services>
 </container>
