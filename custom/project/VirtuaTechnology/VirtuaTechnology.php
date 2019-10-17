@@ -22,7 +22,6 @@ class VirtuaTechnology extends Plugin
             'sRewriteTable::sCreateRewriteTable::after' => 'createTechnologyRewriteTable',
             'Enlight_Controller_Action_PostDispatch_Backend_Performance' => 'loadPerformanceExtension',
             'Shopware_Controllers_Seo_filterCounts' => 'addGlossaryCount',
-            'Shopware_Components_RewriteGenerator_FilterQuery' => 'filterParameterQuery',
             'Enlight_Controller_Action_PreDispatch_Backend' =>'addTemplateDir'
         ];
     }
@@ -143,15 +142,4 @@ class VirtuaTechnology extends Plugin
         return $counts;
     }
 
-    public function filterParameterQuery(\Enlight_Event_EventArgs $args)
-    {
-        $orgQuery = $args->getReturn();
-        $query = $args->getQuery();
-
-        if ($query['controller'] === 'technology' && isset($query['nameId'])) {
-            $orgQuery['nameId'] = $query['nameId'];
-        }
-
-        return $orgQuery;
-    }
 }
