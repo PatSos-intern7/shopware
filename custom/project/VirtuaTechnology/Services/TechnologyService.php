@@ -2,6 +2,7 @@
 namespace VirtuaTechnology\Services;
 
 use Doctrine\DBAL\Connection;
+use Shopware\Components\Form\Container;
 
 class TechnologyService
 {
@@ -15,16 +16,19 @@ class TechnologyService
      */
     public function __construct(
         Connection $connection
+
     ) {
         $this->connection = $connection;
     }
 
-    public function getTechnologiesData()
+    public function getTechnologiesData($offset,$limit)
     {
         $builder = $this->connection->createQueryBuilder();
         $query = $builder->select('svt.name, svt.description, path, url')
             ->from('s_virtua_technology','svt')
             ->leftJoin('svt','s_media','sm','svt.logo = sm.id')
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
             ->execute()
             ->fetchAll();
 
