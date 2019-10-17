@@ -9,13 +9,20 @@ class Shopware_Controllers_Frontend_Technology extends Enlight_Controller_Action
         parent::preDispatch();
     }
 
-    public function indexAction()
+    public function indexAction(): void
     {
+        $request = $this->Request();
+        $router = $this->get('router');
+
+        $technologyPaginator = $this->get('virtua_technology.services.technology_paginator');
+        $paginationData = $technologyPaginator->getPaginationData($request,$router);
+
         $technologyService = $this->get('virtua_technology_services.technology_service');
-        $technologies = $technologyService->getTechnologiesData();
+        $technologies = $technologyService->getTechnologiesData($paginationData['offset'],$paginationData['perPage']);
         $this->View()->assign('techList',$technologies);
+        $this->View()->assign('paginator', $paginationData);
     }
-    public function detailAction()
+    public function detailAction(): void
     {
         $nameId = $this->Request()->getParam('nameId');
         $technologyService = $this->get('virtua_technology_services.technology_service');
