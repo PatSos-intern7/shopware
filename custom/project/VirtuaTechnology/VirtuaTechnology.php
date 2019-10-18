@@ -154,12 +154,12 @@ class VirtuaTechnology extends Plugin
 
         $attributeService->update(
             's_articles_attributes',
-            'my_multi_selection',
+            'technology',
             'multi_selection',
             [
                 'entity' => Technology::class,
                 'displayInBackend' => true,
-                'label' => 'My multi selection',
+                'label' => 'Technology',
             ],
             null,
             true
