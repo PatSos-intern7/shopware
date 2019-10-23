@@ -17,13 +17,13 @@ class DispatchCreator
     /**
      * @var array
      */
-    private $euCountriesIsoCode;
+    private $euCountriesIsoCodes;
 
     public function __construct(ModelManager $em)
     {
         $this->em = $em;
 
-        $this->euCountriesIsoCode = [
+        $this->euCountriesIsoCodes = [
             'AT', 'BE', 'HR', 'BG', 'CY',
             'CZ', 'DK', 'EE', 'FI', 'FR',
             'DE', 'GR', 'HU', 'IE', 'IT',
@@ -67,7 +67,7 @@ class DispatchCreator
             ->setShippingFree(100);
     }
 
-    private function dispatchCheck()
+    private function dispatchCheck(): bool
     {
         $dispatchRepo = $this->em->getRepository(Dispatch::class);
         return  empty($dispatchRepo->findBy(['name'=>'Poczta Polska'])) ?  true : false ;
@@ -77,7 +77,7 @@ class DispatchCreator
     {
         $countries = $this->em->getRepository(Country::class);
 
-        return  $countries->findBy(['iso'=>$this->euCountriesIsoCode]);
+        return  $countries->findBy(['iso'=>$this->euCountriesIsoCodes]);
     }
 
     private function getPayments()
