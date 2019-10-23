@@ -9,10 +9,5 @@
             <argument id="models" type="service"/>
         </service>
 
-        <service class="VirtuaPocztaPolskaDispatch\Subscriber\Frontend" id="virtua_poczta_polska_dispatch.subscriber.frontend">
-            <tag name="shopware.event_subscriber"/>
-        </service>
-
-
     </services>
 </container>
