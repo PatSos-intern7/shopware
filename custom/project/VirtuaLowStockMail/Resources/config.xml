@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.3/engine/Shopware/Components/Plugin/schema/config.xsd">
+    <elements>
+        <element required="true" type="number" scope="locale">
+            <name>Low stock Qty</name>
+            <label lang="de">Low stock Qty</label>
+            <label lang="en">Low stock Qty</label>
+            <description lang="de">Low Stock Qty</description>
+            <description lang="en">Low Stock Qty</description>
+        </element>
+        <element required="true" type="boolean" scope="locale">
+            <name>Low stock alert</name>
+            <label lang="de">Warnung bei niedrigem Lagerbestand</label>
+            <label lang="en">Low stock alert</label>
+            <value>false</value>
+            <description lang="de">Warnung bei niedrigem Lagerbestand</description>
+            <description lang="en">Low stock alert</description>
+        </element>
+    </elements>
+</config>
