@@ -28,6 +28,9 @@ Thumbs.db
 /custom/plugins/*
 
 
+/custom/plugins/*
+
+
 # User installed themes
 /themes/Frontend/*
 !/themes/Frontend/.eslintrc.js
