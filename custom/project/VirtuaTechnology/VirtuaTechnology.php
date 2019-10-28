@@ -2,6 +2,7 @@
 
 namespace VirtuaTechnology;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\Tools\SchemaTool;
 use Enlight_Controller_ActionEventArgs;
 use Shopware\Components\Model\ModelManager;
@@ -17,7 +18,11 @@ class VirtuaTechnology extends Plugin
     public static function getSubscribedEvents()
     {
         return [
-            'Enlight_Controller_Action_PreDispatch_Backend' => 'addTemplateDir'
+            'Shopware_CronJob_RefreshSeoIndex_CreateRewriteTable' => 'createTechnologyRewriteTable',
+            'sRewriteTable::sCreateRewriteTable::after' => 'createTechnologyRewriteTable',
+            'Enlight_Controller_Action_PostDispatch_Backend_Performance' => 'loadPerformanceExtension',
+            'Shopware_Controllers_Seo_filterCounts' => 'addGlossaryCount',
+            'Enlight_Controller_Action_PreDispatch_Backend' =>'addTemplateDir'
         ];
     }
     /**
@@ -26,6 +31,7 @@ class VirtuaTechnology extends Plugin
     public function install(InstallContext $installContext)
     {
         $this->createDatabase();
+        $this->insertTestData();
     }
 
     public function uninstall(UninstallContext $uninstallContext)
@@ -58,7 +64,7 @@ class VirtuaTechnology extends Plugin
         $tool->updateSchema($classes, true); // make sure to use the save mode
     }
 
-    private function removeDatabase()
+    private function removeDatabase(): void
     {
         $modelManager = $this->container->get('models');
         $tool = new SchemaTool($modelManager);
@@ -72,10 +78,68 @@ class VirtuaTechnology extends Plugin
      * @param ModelManager $modelManager
      * @return array
      */
-    private function getClasses(ModelManager $modelManager)
+    private function getClasses(ModelManager $modelManager): array
     {
         return [
             $modelManager->getClassMetadata(Technology::class)
         ];
     }
+
+    private function insertTestData(): void
+    {
+        $dbalConnection = $this->container->get('dbal_connection');
+        $dbalConnection->exec(
+            'INSERT IGNORE INTO `s_virtua_technology` (`id`,`name`,`description`,`logo`,`url`) 
+                       VALUES
+                        (9, \'45645\', \'65465465\', \'782\', \'45645\'),
+                        (10, \'4545\', \'56546545\', \'780\', \'4545\');
+        ');
+    }
+
+    public function createTechnologyRewriteTable(): void
+    {
+        /** @var \sRewriteTable $rewriteTableModule */
+        $rewriteTableModule = Shopware()->Container()->get('modules')->sRewriteTable();
+        $rewriteTableModule->sInsertUrl('sViewport=technology', 'technology/');
+
+        /** @var QueryBuilder $dbalQueryBuilder */
+        $dbalQueryBuilder = $this->container->get('dbal_connection')->createQueryBuilder();
+
+        $technologies = $dbalQueryBuilder->select('svt.id, svt.url')
+            ->from('s_virtua_technology', 'svt')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
+
+        foreach ($technologies as $techId => $tech) {
+            $rewriteTableModule->sInsertUrl('sViewport=technology&sAction=detail&nameId=' . $techId, 'technology/' . $tech);
+        }
+    }
+
+    public function loadPerformanceExtension(\Enlight_Controller_ActionEventArgs $args)
+    {
+        $subject = $args->getSubject();
+        $request = $subject->Request();
+
+        if ($request->getActionName() !== 'load') {
+            return;
+        }
+        $subject->View()->addTemplateDir($this->getPath() . '/Resources/views/');
+    }
+
+    public function addGlossaryCount(\Enlight_Event_EventArgs $args)
+    {
+        $counts = $args->getReturn();
+
+        /** @var QueryBuilder $dbalQueryBuilder */
+        $dbalQueryBuilder = $this->container->get('dbal_connection')->createQueryBuilder();
+        $technologyCount = $dbalQueryBuilder->select('COUNT(svt.id)')
+            ->from('s_virtua_technology', 'svt')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        $counts['technology'] = $technologyCount;
+
+        return $counts;
+    }
+
 }

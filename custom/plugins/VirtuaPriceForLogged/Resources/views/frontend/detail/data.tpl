@@ -1,6 +1,6 @@
 {extends file="parent:frontend/detail/data.tpl"}
     {block name='frontend_detail_data_price_default'}
-        {if $logged}
+        {if $sUserLoggedIn}
             {$smarty.block.parent}
         {else}
             <p>Login to see prices</p>
