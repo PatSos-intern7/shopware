@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.3/engine/Shopware/Components/Plugin/schema/config.xsd">
+    <elements>
+        <element required="true" type="number" scope="locale">
+            <name>my name</name>
+            <label lang="de">NoP</label>
+            <label lang="en">Number of products</label>
+            <value>3</value>
+            <description lang="de">Number of products</description>
+            <description lang="en">Number of products</description>
+        </element>
+        <element required="true" type="boolean" scope="locale">
+            <name>Display Featured Products</name>
+            <label lang="de">Display Featured Products</label>
+            <label lang="en">Display Featured Products</label>
+            <value>false</value>
+            <description lang="de">DFP</description>
+            <description lang="en">DFP</description>
+        </element>
+    </elements>
+</config>
