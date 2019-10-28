@@ -13,10 +13,5 @@
             <argument id="router" type="service"/>
         </service>
 
-        <service class="VirtuaTechnology\Subscriber\TechnologySubscriber" id="virtua_technology.subscriber.technology_subscriber">
-            <argument id="template" type="service"/>
-            <tag name="shopware.event_subscriber"/>
-        </service>
-
     </services>
 </container>
