@@ -4,6 +4,11 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
+        <service class="VirtuaPriceForLogged\Subscriber\Frontend" id="virtua_price_for_logged.subscriber.frontend">
+            <tag name="shopware.event_subscriber"/>
+            <argument type="service" id="service_container"></argument>
+        </service>
+
 
     </services>
 </container>
