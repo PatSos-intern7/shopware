@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service class="VirtuaFeaturedProducts\Subscriber\Frontend" id="virtua_featured_products.subscriber.frontend">
+            <argument id="virtua_featured_products_bundle_store_front.feature_service" type="service"/>
+            <tag name="shopware.event_subscriber"/>
+        </service>
+
+        <service class="VirtuaFeaturedProducts\Bundle\StoreFrontBundle\FeatureService" id="virtua_featured_products_bundle_store_front.feature_service">
+            <argument id="dbal_connection" type="service"/>
+            <argument id="service_container" type="service"/>
+            <argument id="shopware_storefront.list_product_service" type="service"/>
+        </service>
+
+    </services>
+</container>
